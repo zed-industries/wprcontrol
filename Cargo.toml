@@ -1,0 +1,24 @@
+[package]
+name = "wprcontrol-rs"
+version = "0.1.0"
+edition = "2021"
+description = "Rust bindings for the Windows Performance Recorder Control API"
+license = "MIT"
+
+[dependencies.windows-core]
+version = "0.61"
+
+[dependencies.windows-link]
+version = "0.2.1"
+
+[dependencies.windows]
+version = "0.61"
+features = [
+    "Win32_Foundation",
+    "Win32_System_Com",
+    "Win32_System_Ole",
+    "Win32_System_Variant",
+]
+
+[build-dependencies.windows-bindgen]
+version = "0.61"

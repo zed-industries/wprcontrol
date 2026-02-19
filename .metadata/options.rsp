@@ -1,0 +1,7 @@
+--remap
+__MIDL_IControlErrorInfo_0001=CObjectType
+__MIDL_IProfile_0001=CLoggingMode
+__MIDL_IProfile_0002=CDetailLevel
+__MIDL_ISnapshotManager_0001=SnapshotType
+--with-librarypath
+*=windowsperformancerecordercontrol.dll
