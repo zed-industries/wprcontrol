@@ -1,8 +1,8 @@
 [package]
-name = "wprcontrol-rs"
+name = "wprcontrol"
 version = "0.1.0"
 edition = "2021"
-description = "Rust bindings for the Windows Performance Recorder Control API"
+description = "Rust bindings for the Windows Performance Recorder (WPR) Control API"
 license = "MIT"
 
 [dependencies.windows-core]

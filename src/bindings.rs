@@ -10,60 +10,60 @@
 
 #[inline]
 pub unsafe fn WPRCControlLogging(fenabled: bool) -> windows_core::Result<()> {
-    windows_link::link!("windowsperformancerecordercontrol.dll" "system" fn WPRCControlLogging(fenabled : windows_core::BOOL) -> windows_core::HRESULT);
+    windows_link::link!("windowsperformancerecordercontrol" "system" fn WPRCControlLogging(fenabled : windows_core::BOOL) -> windows_core::HRESULT);
     unsafe { WPRCControlLogging(fenabled.into()).ok() }
 }
 #[inline]
-pub unsafe fn WPRCCreateInstance<P1>(
+pub unsafe fn WPRCCreateInstance<P1, T>(
     rclsid: *const windows_core::GUID,
     punkouter: P1,
     dwclscontext: u32,
-    riid: *const windows_core::GUID,
-    ppv: *mut *mut core::ffi::c_void,
-) -> windows_core::Result<()>
+) -> windows_core::Result<T>
 where
     P1: windows_core::Param<windows_core::IUnknown>,
+    T: windows_core::Interface,
 {
-    windows_link::link!("windowsperformancerecordercontrol.dll" "system" fn WPRCCreateInstance(rclsid : *const windows_core::GUID, punkouter : * mut core::ffi::c_void, dwclscontext : u32, riid : *const windows_core::GUID, ppv : *mut *mut core::ffi::c_void) -> windows_core::HRESULT);
+    windows_link::link!("windowsperformancerecordercontrol" "system" fn WPRCCreateInstance(rclsid : *const windows_core::GUID, punkouter : * mut core::ffi::c_void, dwclscontext : u32, riid : *const windows_core::GUID, ppv : *mut *mut core::ffi::c_void) -> windows_core::HRESULT);
+    let mut result__ = core::ptr::null_mut();
     unsafe {
         WPRCCreateInstance(
             rclsid,
             punkouter.param().abi(),
             dwclscontext,
-            riid,
-            ppv as _,
+            &T::IID,
+            &mut result__,
         )
-        .ok()
+        .and_then(|| windows_core::Type::from_abi(result__))
     }
 }
 #[inline]
-pub unsafe fn WPRCCreateInstanceUnderInstanceName<P2>(
+pub unsafe fn WPRCCreateInstanceUnderInstanceName<P2, T>(
     bstrinstancename: &windows_core::BSTR,
     rclsid: *const windows_core::GUID,
     punkouter: P2,
     dwclscontext: u32,
-    riid: *const windows_core::GUID,
-    ppv: *mut *mut core::ffi::c_void,
-) -> windows_core::Result<()>
+) -> windows_core::Result<T>
 where
     P2: windows_core::Param<windows_core::IUnknown>,
+    T: windows_core::Interface,
 {
-    windows_link::link!("windowsperformancerecordercontrol.dll" "system" fn WPRCCreateInstanceUnderInstanceName(bstrinstancename : * mut core::ffi::c_void, rclsid : *const windows_core::GUID, punkouter : * mut core::ffi::c_void, dwclscontext : u32, riid : *const windows_core::GUID, ppv : *mut *mut core::ffi::c_void) -> windows_core::HRESULT);
+    windows_link::link!("windowsperformancerecordercontrol" "system" fn WPRCCreateInstanceUnderInstanceName(bstrinstancename : * mut core::ffi::c_void, rclsid : *const windows_core::GUID, punkouter : * mut core::ffi::c_void, dwclscontext : u32, riid : *const windows_core::GUID, ppv : *mut *mut core::ffi::c_void) -> windows_core::HRESULT);
+    let mut result__ = core::ptr::null_mut();
     unsafe {
         WPRCCreateInstanceUnderInstanceName(
             core::mem::transmute_copy(bstrinstancename),
             rclsid,
             punkouter.param().abi(),
             dwclscontext,
-            riid,
-            ppv as _,
+            &T::IID,
+            &mut result__,
         )
-        .ok()
+        .and_then(|| windows_core::Type::from_abi(result__))
     }
 }
 #[inline]
 pub unsafe fn WPRCDisableBuiltinProfiles() -> windows_core::Result<()> {
-    windows_link::link!("windowsperformancerecordercontrol.dll" "system" fn WPRCDisableBuiltinProfiles() -> windows_core::HRESULT);
+    windows_link::link!("windowsperformancerecordercontrol" "system" fn WPRCDisableBuiltinProfiles() -> windows_core::HRESULT);
     unsafe { WPRCDisableBuiltinProfiles().ok() }
 }
 #[inline]
@@ -77,7 +77,7 @@ pub unsafe fn WPRCFormatError<P1>(
 where
     P1: windows_core::Param<windows_core::IUnknown>,
 {
-    windows_link::link!("windowsperformancerecordercontrol.dll" "system" fn WPRCFormatError(hresult : windows_core::HRESULT, punknown : * mut core::ffi::c_void, pbstrmessage : *mut * mut core::ffi::c_void, pbstrdescription : *mut * mut core::ffi::c_void, pbstrdetaileddescription : *mut * mut core::ffi::c_void) -> windows_core::HRESULT);
+    windows_link::link!("windowsperformancerecordercontrol" "system" fn WPRCFormatError(hresult : windows_core::HRESULT, punknown : * mut core::ffi::c_void, pbstrmessage : *mut * mut core::ffi::c_void, pbstrdescription : *mut * mut core::ffi::c_void, pbstrdetaileddescription : *mut * mut core::ffi::c_void) -> windows_core::HRESULT);
     unsafe {
         WPRCFormatError(
             hresult,
@@ -93,7 +93,7 @@ where
 pub unsafe fn WPRCQueryBuiltInProfiles(
     hmodule: windows::Win32::Foundation::HMODULE,
 ) -> windows_core::Result<windows_core::BSTR> {
-    windows_link::link!("windowsperformancerecordercontrol.dll" "system" fn WPRCQueryBuiltInProfiles(hmodule : windows::Win32::Foundation:: HMODULE, pbstrprofiles : *mut * mut core::ffi::c_void) -> windows_core::HRESULT);
+    windows_link::link!("windowsperformancerecordercontrol" "system" fn WPRCQueryBuiltInProfiles(hmodule : windows::Win32::Foundation:: HMODULE, pbstrprofiles : *mut * mut core::ffi::c_void) -> windows_core::HRESULT);
     unsafe {
         let mut result__ = core::mem::zeroed();
         WPRCQueryBuiltInProfiles(hmodule, &mut result__).map(|| core::mem::transmute(result__))
@@ -103,12 +103,12 @@ pub unsafe fn WPRCQueryBuiltInProfiles(
 pub unsafe fn WPRCReleaseInstanceByName(
     bstrinstancename: &windows_core::BSTR,
 ) -> windows_core::Result<()> {
-    windows_link::link!("windowsperformancerecordercontrol.dll" "system" fn WPRCReleaseInstanceByName(bstrinstancename : * mut core::ffi::c_void) -> windows_core::HRESULT);
+    windows_link::link!("windowsperformancerecordercontrol" "system" fn WPRCReleaseInstanceByName(bstrinstancename : * mut core::ffi::c_void) -> windows_core::HRESULT);
     unsafe { WPRCReleaseInstanceByName(core::mem::transmute_copy(bstrinstancename)).ok() }
 }
 #[inline]
 pub unsafe fn WPRCRemoveLogging() -> windows_core::Result<()> {
-    windows_link::link!("windowsperformancerecordercontrol.dll" "system" fn WPRCRemoveLogging() -> windows_core::HRESULT);
+    windows_link::link!("windowsperformancerecordercontrol" "system" fn WPRCRemoveLogging() -> windows_core::HRESULT);
     unsafe { WPRCRemoveLogging().ok() }
 }
 pub const CControlManager: windows_core::GUID =
@@ -168,14 +168,15 @@ impl IControlErrorInfo {
             .map(|| result__)
         }
     }
-    pub unsafe fn GetInnerErrorInfo(&self) -> windows_core::Result<windows_core::IUnknown> {
+    pub unsafe fn GetInnerErrorInfo(
+        &self,
+        ppval: *mut Option<windows_core::IUnknown>,
+    ) -> windows_core::HRESULT {
         unsafe {
-            let mut result__ = core::mem::zeroed();
             (windows_core::Interface::vtable(self).GetInnerErrorInfo)(
                 windows_core::Interface::as_raw(self),
-                &mut result__,
+                core::mem::transmute(ppval),
             )
-            .and_then(|| windows_core::Type::from_abi(result__))
         }
     }
 }
@@ -199,7 +200,10 @@ pub struct IControlErrorInfo_Vtbl {
 pub trait IControlErrorInfo_Impl: windows::Win32::System::Com::IErrorInfo_Impl {
     fn GetObjectType(&self) -> windows_core::Result<CObjectType>;
     fn GetHResult(&self) -> windows_core::Result<windows_core::HRESULT>;
-    fn GetInnerErrorInfo(&self) -> windows_core::Result<windows_core::IUnknown>;
+    fn GetInnerErrorInfo(
+        &self,
+        ppval: windows_core::OutRef<'_, windows_core::IUnknown>,
+    ) -> windows_core::HRESULT;
 }
 impl IControlErrorInfo_Vtbl {
     pub const fn new<Identity: IControlErrorInfo_Impl, const OFFSET: isize>() -> Self {
@@ -251,13 +255,7 @@ impl IControlErrorInfo_Vtbl {
             unsafe {
                 let this: &Identity =
                     &*((this as *const *const ()).offset(OFFSET) as *const Identity);
-                match IControlErrorInfo_Impl::GetInnerErrorInfo(this) {
-                    Ok(ok__) => {
-                        ppval.write(core::mem::transmute(ok__));
-                        windows_core::HRESULT(0)
-                    }
-                    Err(err) => err.into(),
-                }
+                IControlErrorInfo_Impl::GetInnerErrorInfo(this, core::mem::transmute_copy(&ppval))
             }
         }
         Self {
@@ -1092,7 +1090,7 @@ impl IEnumControlWarningInfo {
         &self,
         prgvar: &mut [Option<IControlErrorInfo>],
         pceltfetched: *mut u32,
-    ) -> windows_core::Result<()> {
+    ) -> windows_core::HRESULT {
         unsafe {
             (windows_core::Interface::vtable(self).Next)(
                 windows_core::Interface::as_raw(self),
@@ -1100,22 +1098,19 @@ impl IEnumControlWarningInfo {
                 core::mem::transmute(prgvar.as_ptr()),
                 pceltfetched as _,
             )
-            .ok()
         }
     }
-    pub unsafe fn Skip(&self, celt: u32) -> windows_core::Result<()> {
+    pub unsafe fn Skip(&self, celt: u32) -> windows_core::HRESULT {
         unsafe {
             (windows_core::Interface::vtable(self).Skip)(
                 windows_core::Interface::as_raw(self),
                 celt,
             )
-            .ok()
         }
     }
-    pub unsafe fn Reset(&self) -> windows_core::Result<()> {
+    pub unsafe fn Reset(&self) -> windows_core::HRESULT {
         unsafe {
             (windows_core::Interface::vtable(self).Reset)(windows_core::Interface::as_raw(self))
-                .ok()
         }
     }
     pub unsafe fn Clone(&self) -> windows_core::Result<IEnumControlWarningInfo> {
@@ -1152,9 +1147,9 @@ pub trait IEnumControlWarningInfo_Impl: windows::Win32::System::Com::IDispatch_I
         celt: u32,
         prgvar: *mut Option<IControlErrorInfo>,
         pceltfetched: *mut u32,
-    ) -> windows_core::Result<()>;
-    fn Skip(&self, celt: u32) -> windows_core::Result<()>;
-    fn Reset(&self) -> windows_core::Result<()>;
+    ) -> windows_core::HRESULT;
+    fn Skip(&self, celt: u32) -> windows_core::HRESULT;
+    fn Reset(&self) -> windows_core::HRESULT;
     fn Clone(&self) -> windows_core::Result<IEnumControlWarningInfo>;
 }
 impl IEnumControlWarningInfo_Vtbl {
@@ -1177,7 +1172,6 @@ impl IEnumControlWarningInfo_Vtbl {
                     core::mem::transmute_copy(&prgvar),
                     core::mem::transmute_copy(&pceltfetched),
                 )
-                .into()
             }
         }
         unsafe extern "system" fn Skip<
@@ -1190,7 +1184,7 @@ impl IEnumControlWarningInfo_Vtbl {
             unsafe {
                 let this: &Identity =
                     &*((this as *const *const ()).offset(OFFSET) as *const Identity);
-                IEnumControlWarningInfo_Impl::Skip(this, core::mem::transmute_copy(&celt)).into()
+                IEnumControlWarningInfo_Impl::Skip(this, core::mem::transmute_copy(&celt))
             }
         }
         unsafe extern "system" fn Reset<
@@ -1202,7 +1196,7 @@ impl IEnumControlWarningInfo_Vtbl {
             unsafe {
                 let this: &Identity =
                     &*((this as *const *const ()).offset(OFFSET) as *const Identity);
-                IEnumControlWarningInfo_Impl::Reset(this).into()
+                IEnumControlWarningInfo_Impl::Reset(this)
             }
         }
         unsafe extern "system" fn Clone<
@@ -1259,7 +1253,7 @@ impl IEnumProfile {
         &self,
         prgvar: &mut [Option<IProfile>],
         pceltfetched: *mut u32,
-    ) -> windows_core::Result<()> {
+    ) -> windows_core::HRESULT {
         unsafe {
             (windows_core::Interface::vtable(self).Next)(
                 windows_core::Interface::as_raw(self),
@@ -1267,22 +1261,19 @@ impl IEnumProfile {
                 core::mem::transmute(prgvar.as_ptr()),
                 pceltfetched as _,
             )
-            .ok()
         }
     }
-    pub unsafe fn Skip(&self, celt: u32) -> windows_core::Result<()> {
+    pub unsafe fn Skip(&self, celt: u32) -> windows_core::HRESULT {
         unsafe {
             (windows_core::Interface::vtable(self).Skip)(
                 windows_core::Interface::as_raw(self),
                 celt,
             )
-            .ok()
         }
     }
-    pub unsafe fn Reset(&self) -> windows_core::Result<()> {
+    pub unsafe fn Reset(&self) -> windows_core::HRESULT {
         unsafe {
             (windows_core::Interface::vtable(self).Reset)(windows_core::Interface::as_raw(self))
-                .ok()
         }
     }
     pub unsafe fn Clone(&self) -> windows_core::Result<IEnumProfile> {
@@ -1319,9 +1310,9 @@ pub trait IEnumProfile_Impl: windows::Win32::System::Com::IDispatch_Impl {
         celt: u32,
         prgvar: *mut Option<IProfile>,
         pceltfetched: *mut u32,
-    ) -> windows_core::Result<()>;
-    fn Skip(&self, celt: u32) -> windows_core::Result<()>;
-    fn Reset(&self) -> windows_core::Result<()>;
+    ) -> windows_core::HRESULT;
+    fn Skip(&self, celt: u32) -> windows_core::HRESULT;
+    fn Reset(&self) -> windows_core::HRESULT;
     fn Clone(&self) -> windows_core::Result<IEnumProfile>;
 }
 impl IEnumProfile_Vtbl {
@@ -1341,7 +1332,6 @@ impl IEnumProfile_Vtbl {
                     core::mem::transmute_copy(&prgvar),
                     core::mem::transmute_copy(&pceltfetched),
                 )
-                .into()
             }
         }
         unsafe extern "system" fn Skip<Identity: IEnumProfile_Impl, const OFFSET: isize>(
@@ -1351,7 +1341,7 @@ impl IEnumProfile_Vtbl {
             unsafe {
                 let this: &Identity =
                     &*((this as *const *const ()).offset(OFFSET) as *const Identity);
-                IEnumProfile_Impl::Skip(this, core::mem::transmute_copy(&celt)).into()
+                IEnumProfile_Impl::Skip(this, core::mem::transmute_copy(&celt))
             }
         }
         unsafe extern "system" fn Reset<Identity: IEnumProfile_Impl, const OFFSET: isize>(
@@ -1360,7 +1350,7 @@ impl IEnumProfile_Vtbl {
             unsafe {
                 let this: &Identity =
                     &*((this as *const *const ()).offset(OFFSET) as *const Identity);
-                IEnumProfile_Impl::Reset(this).into()
+                IEnumProfile_Impl::Reset(this)
             }
         }
         unsafe extern "system" fn Clone<Identity: IEnumProfile_Impl, const OFFSET: isize>(
@@ -2128,7 +2118,7 @@ impl IProfile {
             .ok()
         }
     }
-    pub unsafe fn IsEqual<P0>(&self, pprofile: P0) -> windows_core::Result<()>
+    pub unsafe fn IsEqual<P0>(&self, pprofile: P0) -> windows_core::HRESULT
     where
         P0: windows_core::Param<IProfile>,
     {
@@ -2137,7 +2127,6 @@ impl IProfile {
                 windows_core::Interface::as_raw(self),
                 pprofile.param().abi(),
             )
-            .ok()
         }
     }
 }
@@ -2257,7 +2246,7 @@ pub trait IProfile_Impl: windows::Win32::System::Com::IDispatch_Impl {
         bstrfilename: &windows_core::BSTR,
     ) -> windows_core::Result<()>;
     fn LoadFromString(&self, bstrprofile: &windows_core::BSTR) -> windows_core::Result<()>;
-    fn IsEqual(&self, pprofile: windows_core::Ref<'_, IProfile>) -> windows_core::Result<()>;
+    fn IsEqual(&self, pprofile: windows_core::Ref<'_, IProfile>) -> windows_core::HRESULT;
 }
 impl IProfile_Vtbl {
     pub const fn new<Identity: IProfile_Impl, const OFFSET: isize>() -> Self {
@@ -2585,7 +2574,7 @@ impl IProfile_Vtbl {
             unsafe {
                 let this: &Identity =
                     &*((this as *const *const ()).offset(OFFSET) as *const Identity);
-                IProfile_Impl::IsEqual(this, core::mem::transmute_copy(&pprofile)).into()
+                IProfile_Impl::IsEqual(this, core::mem::transmute_copy(&pprofile))
             }
         }
         Self {
@@ -2740,7 +2729,7 @@ impl IProfileCollection {
                 .ok()
         }
     }
-    pub unsafe fn IsEqual<P0>(&self, pprofilecollection: P0) -> windows_core::Result<()>
+    pub unsafe fn IsEqual<P0>(&self, pprofilecollection: P0) -> windows_core::HRESULT
     where
         P0: windows_core::Param<IProfileCollection>,
     {
@@ -2749,7 +2738,6 @@ impl IProfileCollection {
                 windows_core::Interface::as_raw(self),
                 pprofilecollection.param().abi(),
             )
-            .ok()
         }
     }
     pub unsafe fn LoadIntoXML(&self) -> windows_core::Result<windows_core::BSTR> {
@@ -2797,7 +2785,7 @@ pub trait IProfileCollection_Impl: windows::Win32::System::Com::IDispatch_Impl {
     fn IsEqual(
         &self,
         pprofilecollection: windows_core::Ref<'_, IProfileCollection>,
-    ) -> windows_core::Result<()>;
+    ) -> windows_core::HRESULT;
     fn LoadIntoXML(&self) -> windows_core::Result<windows_core::BSTR>;
 }
 impl IProfileCollection_Vtbl {
@@ -2851,7 +2839,6 @@ impl IProfileCollection_Vtbl {
                     this,
                     core::mem::transmute_copy(&pprofilecollection),
                 )
-                .into()
             }
         }
         unsafe extern "system" fn LoadIntoXML<
@@ -3211,7 +3198,7 @@ impl ISnapshotManager2 {
         pids: *const u32,
         cpids: u32,
         fenable: windows::Win32::Foundation::VARIANT_BOOL,
-    ) -> windows_core::Result<()> {
+    ) -> windows_core::HRESULT {
         unsafe {
             (windows_core::Interface::vtable(self).ConfigSnapshotByPID)(
                 windows_core::Interface::as_raw(self),
@@ -3219,7 +3206,6 @@ impl ISnapshotManager2 {
                 cpids,
                 fenable,
             )
-            .ok()
         }
     }
     pub unsafe fn ConfigSnapshotByProcess(
@@ -3259,7 +3245,7 @@ pub trait ISnapshotManager2_Impl: ISnapshotManager_Impl {
         pids: *const u32,
         cpids: u32,
         fenable: windows::Win32::Foundation::VARIANT_BOOL,
-    ) -> windows_core::Result<()>;
+    ) -> windows_core::HRESULT;
     fn ConfigSnapshotByProcess(
         &self,
         bstrprocname: &windows_core::BSTR,
@@ -3286,7 +3272,6 @@ impl ISnapshotManager2_Vtbl {
                     core::mem::transmute_copy(&cpids),
                     core::mem::transmute_copy(&fenable),
                 )
-                .into()
             }
         }
         unsafe extern "system" fn ConfigSnapshotByProcess<
@@ -3347,7 +3332,7 @@ impl ISnapshotManager3 {
         presults: *mut windows_core::HRESULT,
         cpids: u32,
         fenable: windows::Win32::Foundation::VARIANT_BOOL,
-    ) -> windows_core::Result<()> {
+    ) -> windows_core::HRESULT {
         unsafe {
             (windows_core::Interface::vtable(self).ConfigSnapshotByPIDEx)(
                 windows_core::Interface::as_raw(self),
@@ -3357,7 +3342,6 @@ impl ISnapshotManager3 {
                 cpids,
                 fenable,
             )
-            .ok()
         }
     }
     pub unsafe fn ConfigSnapshotByProcessEx(
@@ -3404,7 +3388,7 @@ pub trait ISnapshotManager3_Impl: ISnapshotManager2_Impl {
         presults: *mut windows_core::HRESULT,
         cpids: u32,
         fenable: windows::Win32::Foundation::VARIANT_BOOL,
-    ) -> windows_core::Result<()>;
+    ) -> windows_core::HRESULT;
     fn ConfigSnapshotByProcessEx(
         &self,
         snapshottype: SnapshotType,
@@ -3436,7 +3420,6 @@ impl ISnapshotManager3_Vtbl {
                     core::mem::transmute_copy(&cpids),
                     core::mem::transmute_copy(&fenable),
                 )
-                .into()
             }
         }
         unsafe extern "system" fn ConfigSnapshotByProcessEx<
@@ -3517,7 +3500,7 @@ impl ITraceMergeProperties {
             .ok()
         }
     }
-    pub unsafe fn IsEqual<P0>(&self, ptracemergeproperties: P0) -> windows_core::Result<()>
+    pub unsafe fn IsEqual<P0>(&self, ptracemergeproperties: P0) -> windows_core::HRESULT
     where
         P0: windows_core::Param<ITraceMergeProperties>,
     {
@@ -3526,7 +3509,6 @@ impl ITraceMergeProperties {
                 windows_core::Interface::as_raw(self),
                 ptracemergeproperties.param().abi(),
             )
-            .ok()
         }
     }
 }
@@ -3558,7 +3540,7 @@ pub trait ITraceMergeProperties_Impl: windows::Win32::System::Com::IDispatch_Imp
     fn IsEqual(
         &self,
         ptracemergeproperties: windows_core::Ref<'_, ITraceMergeProperties>,
-    ) -> windows_core::Result<()>;
+    ) -> windows_core::HRESULT;
 }
 impl ITraceMergeProperties_Vtbl {
     pub const fn new<Identity: ITraceMergeProperties_Impl, const OFFSET: isize>() -> Self {
@@ -3612,7 +3594,6 @@ impl ITraceMergeProperties_Vtbl {
                     this,
                     core::mem::transmute_copy(&ptracemergeproperties),
                 )
-                .into()
             }
         }
         Self {
